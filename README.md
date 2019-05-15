@@ -1,2 +1,2 @@
 # COMP606A2
-E-Commerce Website
+Dynamic E-Commerce Website (Object Oriented PHP)
