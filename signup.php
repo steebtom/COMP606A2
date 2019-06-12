@@ -11,6 +11,7 @@ require "header.php"
   <div class="container">
     <h1 class="display-4">Signup and Join us.</h1>
     <p class="lead">Get all our exclusive member privilages.</p>
+    
 
     <div class="wrapper-main">                                          
         <section class="section-default">
@@ -20,27 +21,57 @@ require "header.php"
                 {
                     if($_GET['error'] == "emptyfields")
                     {
-                        echo '<p class="signuperr">Fill in all details.</p>';
+                        ?>
+                        <div class="alert alert-danger">
+                        <strong>Error!</strong> Empty Fields!
+                        </div>
+                        <?php
+                        // echo '<p class="signuperr">Fill in all details.</p>';
                     }
                     elseif($_GET['error'] == "invalidemailusername")
                     {
-                        echo '<p class="signuperr">Invalid Username and Email.</p>';
+                        ?>
+                        <div class="alert alert-danger">
+                        <strong>Error</strong> Invalid Email !
+                        </div>
+                        <?php
+                        // echo '<p class="signuperr">Invalid Username and Email.</p>';
                     }
                     elseif($_GET['error'] == "invalidusername")
                     {
-                        echo '<p class="signuperr">Invalid Username.</p>';
+                        ?>
+                        <div class="alert alert-danger">
+                        <strong>Error</strong> Invalid Username !
+                        </div>
+                        <?php
+                        // echo '<p class="signuperr">Invalid Username.</p>';
                     }
                     elseif($_GET['error'] == "invalidemail")
                     {
-                        echo '<p class="signuperr">Invalid Email.</p>';
+                        ?>
+                        <div class="alert alert-danger">
+                        <strong>Error</strong> Invalid Email !
+                        </div>
+                        <?php
+                        // echo '<p class="signuperr">Invalid Email.</p>';
                     }
                     elseif($_GET['error'] == "passwordmismatch")
                     {
-                        echo '<p class="signuperr">Passwords do not match.</p>';
+                        ?>
+                        <div class="alert alert-danger">
+                        <strong>Error</strong> Password Mismatch !
+                        </div>
+                        <?php
+                        // echo '<p class="signuperr">Passwords do not match.</p>';
                     }
                     elseif($_GET['error'] == "useridexists")
                     {
-                        echo '<p class="signuperr">Username already exists.</p>';
+                        ?>
+                        <div class="alert alert-danger">
+                        <strong>Error</strong> Email Exists!
+                        </div>
+                        <?php
+                        // echo '<p class="signuperr">Username already exists.</p>';
                     }
                     
                 }
