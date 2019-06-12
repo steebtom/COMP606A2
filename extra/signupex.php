@@ -52,21 +52,17 @@ if(isset($_POST['signupbtn']))
         
         if($result)
         {
-            echo "<script>alert('Registered Successfull'); </script>";
-        //         // echo "<script>window.top.location='index.php'</script>";
-        //         // echo "<script>window.location.href='index.php'</script>";
-        //         header("Location:../index.php?signupsuccess");
+            
+            header("Location: ../index.php?success=signupsuccess");
+            
         } 
 
         else
         {
-            echo "<script>alert('Username or email already exists'); </script>";
-        // //   echo "<script>window.location.href='index.php'</script>";
-        //     header("Location:../signup.php?error=emailuserexist");
+            
+            header("Location: ../index.php?error1=signupnotsuccess");
+            
         }
-
-
-
 
     }
     
