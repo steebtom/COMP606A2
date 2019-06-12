@@ -9,47 +9,89 @@ if(isset($_SESSION['utype']) && $utype = '2')
 {
         $connection = new Database();
     $uid = $_SESSION['uid'];
-    $query = "SELECT  coid, tcost, labour, material, date FROM CONTRACT WHERE uid = '$uid';";
+    $query = "SELECT  coid, tcost, labour, material, date, status FROM CONTRACT WHERE uid = '$uid';";
     $prepCheck = $connection->conn->prepare($query);
     $res = $prepCheck->execute();
-    // $row = fetch_assoc($res);
-    // $row = $res -> fetch_assoc();
+
+    if(isset($_GET['error']))
+   {   
+           if($_GET['error'] == "sqlerror")
+           {
+              ?>
+              <div class="alert alert-danger">
+              <strong>Database Error!</strong>
+              </div>
+              <?php
+           }}
 
         if(!$res)
         // if(!$row = $res -> fetch_assoc())
         {
             echo "<script>alert('SQL Error!');</script>";
-            header("Location: ../index.php?error=sqlerror");
+            header("Location: ../mycontracts.php?error=sqlerror");
             exit();
         }
         else
         {
-            
-            // mysqli_stmt_execute($stmt);                                         //SQL Statement Execution
-            // $result = mysqli_stmt_get_result($stmt);                            //Getting Results and Displaying data in table
-
-
+?>
+                    <table class = "table table-hover">
+                            <thead>
+                    <tr>
+                    <th>Contract ID</th>
+                        <th>Total Cost</th>
+                        <th>Labour Cost</th>
+                        <th>Material Cost</th>
+                        <th>Contract Expiry</th>
+                        <th>Contract Status</th>
+                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
             while($contract = $prepCheck->fetch(PDO::FETCH_ASSOC))
             {
+                $_SESSION['coid'] = $contract['coid'];
 
-                // echo "id: " . $row["tcost"]. " - Name: " . $row["lcost"]. " " . $row["mcost"];
             ?>
 
                 <div class="container-fluid">
+                  <tr>
+                  <td><?= $contract['coid']; ?> </td>
+                  <td><?= $contract['tcost']; ?> </td>
+                  <td><?= $contract['labour']; ?> </td>
+                  <td><?= $contract['material']; ?> </td>
+                  <td><?= $contract['date']; ?> </td>
                   
-                <h2><?= $contract['coid']; ?> </h2>
-                      <h2><?= $contract['tcost']; ?> </h2>
-                      <h2><?= $contract['labour']; ?> </h2>
-                      <h2><?= $contract['material']; ?> </h2>
-                      <h2><?= $contract['date']; ?> </h2>
-                      
-                
-                
-                
+
+                <?php
+                if($contract['status'] == 1)
+                {
+                    echo '<td>Accepted</td>';
+                    ?>
+                    <td><button type="button" class="btn btn-outline-dark" name="confcbtn"><a href = "message.php?coid=<?php echo $_SESSION['coid']; ?>">Message</a></button></td>
+                    <?php
+
+                }
+                else if($contract['status'] == 2)
+                {
+                    echo '<td>Rejected</td>';
+                }
+                else
+                {
+                    echo '<td>Processing</td>';
+                    ?>
+                    <td><button type="button" class="btn btn-outline-dark" name="confcbtn"><a href = "message.php?coid=<?php echo $_SESSION['coid']; ?>">Message</a></button></td></tr>
+                    <?php
+                }
+                ?>
+  
               </div>
               <?php
             }
-            echo $uid;
+            ?>
+            </tbody>
+            </table>
+            <?php
         }  
     }
     else
