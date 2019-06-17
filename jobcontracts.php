@@ -142,6 +142,7 @@ $res = $prepLogin->execute();
                     <td><?= $jobcontracts['material']; ?> </td>
                     <td><?= $jobcontracts['date']; ?> </td>
                     <td><?= $jobcontracts['uid']; ?> </td>
+                    <td><button type="button" class="btn btn-outline-dark" name="msgbtn"><a href = "message.php?coid=<?php echo $_SESSION['coid']; ?>">Message</a></button></td>
                     </tr>
 
 

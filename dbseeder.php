@@ -2,7 +2,7 @@
 <?php
 
 echo "<h3>*** DATABASE SEEDER RUNNING ***</h3>";
-echo "creating table Users ...<br>";
+// echo "creating table Users ...<br>";
 
 $mysqli->query("DROP TABLE IF EXISTS users");
 
@@ -12,7 +12,6 @@ EOD;
 
 $mysqli->query($sql);
 
-echo "populating table Users ...<br>";
 
 $sql = <<<EOD
 INSERT INTO `users` (`uname`, `fname`, `email`, `password`, `utype`) VALUES
@@ -25,7 +24,7 @@ INSERT INTO `users` (`uname`, `fname`, `email`, `password`, `utype`) VALUES
 EOD;
 
 $mysqli->multi_query($sql);
-echo "retrieving tables in $database ...<br>";
+
 
 $sql2 = <<<EOD
 CREATE TABLE `jobs`( `jid` int(11) AUTO_INCREMENT PRIMARY KEY, `loc` varchar(20) NOT NULL, `descr` varchar(250) NOT NULL, `estcost` varchar(10) NOT NULL, `jdate` varchar(16) NOT NULL, `ldate` varchar(16) NOT NULL,`workerid` int(5) NOT NULL, `uid` int(5) NOT NULL );
@@ -33,7 +32,6 @@ EOD;
 
 $mysqli->query($sql2);
 
-echo "populating table Jobs ...<br>";
 
 $sql2 = <<<EOD
 INSERT INTO `jobs` (`loc`, `descr`, `estcost`, `jdate`, `ldate`, `uid`) VALUES 
@@ -55,14 +53,38 @@ EOD;
 
 $mysqli->query($sql3);
 
+$sql3 = <<<EOD
+INSERT INTO `contract` (`tcost`, `labour`, `material`, `date`, `jid`, `uid`, `status`, `ownerid`) VALUES 
+('300', '300', '240', '2019-07-10', '1', '4', '0', '1'), 
+('350', '350', '300', '2019-06-16', '1', '5', '0', '1'), 
+('250', '250', '150', '2019-06-20', '1', '6', '0', '1'), 
+('220', '220', '170', '2019-06-30', '6', '4', '1', '2'), 
+('200', '200', '160', '2019-06-14', '6', '5', '2', '2'), 
+('220', '220', '220', '2019-07-05', '6', '6', '2', '2')
+EOD;
+
+$mysqli->multi_query($sql3);
+
+
 $sql4 = <<<EOD
 CREATE TABLE `message`( `coid` int(5), `uid` int(5), `msg` varchar(300), `date` varchar(16), `time` varchar(8), `fname` varchar(20));
 EOD;
 
 $mysqli->query($sql4);
 
+$sql3 = <<<EOD
+INSERT INTO `message` (`coid`, `uid`, `msg`, `date`, `time`, `fname`) VALUES 
+('1', '4', 'Hello', '2019-07-10', '03:00', 'trade1'), 
+('1', '1', 'Hi', '2019-07-10', '03:01', 'cust1'), 
+('2', '5', 'Hello', '2019-06-16', '11:10', 'trade2'), 
+('2', '2', 'Hi', '2019-06-16', '11.30', 'cust2'), 
+('3', '5', 'Can we work at night?', '2019-06-20', '07:45', 'trade2'), 
+('3', '1', 'Yes, but not over the weekend !!', '2019-06-20', '08:17', 'cust1')
+EOD;
+
+$mysqli->multi_query($sql3);
 
 
-echo "<h3>*** DATABASE SEEDER FINISHED ***</h3>";
+echo "<h2>SEEDING FINISHED</h2>";
 
 ?>
