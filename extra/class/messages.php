@@ -1,71 +1,27 @@
 <?php
-
-class Messages 
+include_once "db.php";
+class Messages extends Database
 {
-	
-	public $msg;
-    public $date;
-    public $jid;
-    public $uid;
 
+    public function insertmessage($coid, $uid, $msg, $date, $time, $fname)
+    {   
 
-	public function __construct($msg, $date, $jid, $uid)
-	{
-		$this->msg = $msg;
-        $this->date = $date;
-        $this->jid = $jid;
-        $this->uid = $uid;
-	}
+        $query = "INSERT INTO MESSAGE VALUES ('$coid', '$uid', '$msg', '$date', '$time', '$fname')";
+        $prepCheck = $this->conn->prepare($query);
+        $res = $prepCheck->execute();
 
-
-   
-    public function getmsg()
-    {
-        return $this->$msg;
-    }
-
-    public function setmsg($msg)
-    {
-        $this->msg = $msg;
-        return $this;
-    }
-
-   
-    public function getdate()
-    {
-        return $this->date;
-    }
-
-  
-    public function setdate($date)
-    {
-        $this->date = $date;
-        return $this;
-    }
-
-    public function getjid()
-    {
-        return $this->jid;
-    }
-
-  
-    public function setjid($jid)
-    {
-        $this->jid = $jid;
-        return $this;
-    }
-
-    public function getwid()
-    {
-        return $this->wid;
-    }
-
-  
-    public function setwid($wid)
-    {
-        $this->wid = $wid;
-        return $this;
+        if($res)
+            {
+                echo "<script>alert('Contract Created Successfully'); </script>";
+                header("location:../message.php?messagecreated&coid=".$coid);
+                return true;
+            }
+        else
+            {
+                echo "<script>alert('Couldnt Create the Contract'); </script>";
+                return false;
+            }
     }
 }
-
+	
 ?>
